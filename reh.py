@@ -39,5 +39,14 @@ def fibBasic(amnt):
 
         print(thi)
 
-fibBasic(6)
+#fibBasic(6)
 
+def fibRec(n):
+
+    if n == 1 or n == 0:
+        return n
+    else:
+        return fibRec(n-1) + fibRec(n-2)
+
+
+print(fibRec(6))
