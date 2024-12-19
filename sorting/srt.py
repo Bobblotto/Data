@@ -8,7 +8,7 @@ def bubbleSort(list):
             print(list)
         print("")
 
-# bubbleSort([5, 4, 1, 3, 2])
+# bubbleSort([5, 4, 1, 6, 3, 2])
 
 def selectSort(list):
 
@@ -22,4 +22,35 @@ def selectSort(list):
         print(list)
         
 
-selectSort([5, 4, 1, 3, 2])
+# selectSort([5, 4, 1, 6, 3, 2])
+
+def mergeSort(list):
+
+    if len(list) <= 1:
+        return list
+
+    midindex = len(list)//2
+    left = list[0 : midindex] # slice list
+    right = list[midindex:]
+
+    left = mergeSort(left)
+    right = mergeSort(right)
+
+    newlist = []
+    i = 0
+    j = 0
+    
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            newlist.append(left[i])
+            i += 1
+        else:
+            newlist.append(right[j])
+            j += 1
+
+    return newlist
+    # return left, right
+
+    
+
+print(mergeSort([5, 4, 1, 6, 3, 2]))
