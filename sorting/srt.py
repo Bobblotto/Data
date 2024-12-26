@@ -47,9 +47,21 @@ def mergeSort(list):
         else:
             newlist.append(right[j])
             j += 1
+    
+
+    """ while i < len(left):
+        newlist.append(left[i])
+        i += 1
+    while j < len(right):
+        newlist.append(right[j])
+        j += 1 """
+    
+    newlist.extend(left[i:])
+    newlist.extend(right[j:])
 
     return newlist
     # return left, right
+
 
     
 
