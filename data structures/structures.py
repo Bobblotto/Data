@@ -1,5 +1,5 @@
 
-class Stack():
+class Stack(): # LIFO
 
     def __init__(self, size):
         self.size = size
@@ -13,7 +13,7 @@ class Stack():
     
     def pop(self):
         if self.list != []:
-            self.list.pop(-1)
+            return self.list.pop(-1)
     
     def top(self):
         if self.list != []:
@@ -44,7 +44,7 @@ stack.display()
 
 print(stack.top())"""
 
-class Queue():
+class Queue(): # FIFO
 
     def __init__(self, size):
         self.size = size
@@ -67,7 +67,7 @@ class Queue():
     def display(self):
         print(self.list)
 
-queue = Queue(5)
+"""queue = Queue(5)
 
 queue.enqueue("jared")
 queue.display()
@@ -88,4 +88,26 @@ print(queue2)
 queue2.append("sasha")
 print(queue2)
 queue2.remove(queue2[0])
-print(queue2)
+print(queue2)"""
+
+class Node():
+    def __init__(self, data):
+        self.data = data
+        self.children = []
+    
+    def addChild(self, node):
+        self.children.append(node)
+    
+    def display(self):
+        print(self.data)
+        if self.children:
+            for child in self.children:
+                print(child.data)
+                
+
+electronics = Node("phone")
+android = Node("android")
+electronics.addChild(android)
+homescreen = Node("homescreen")
+android.addChild(homescreen)
+electronics.display()
