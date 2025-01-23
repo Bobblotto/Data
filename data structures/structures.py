@@ -98,16 +98,35 @@ class Node():
     def addChild(self, node):
         self.children.append(node)
     
-    def display(self):
-        print(self.data)
+    def display(self, index):
+        print("  "*index, "|__", self.data)
+        
         if self.children:
             for child in self.children:
-                print(child.data)
+                child.display(index+1)
                 
 
-electronics = Node("phone")
-android = Node("android")
-electronics.addChild(android)
-homescreen = Node("homescreen")
-android.addChild(homescreen)
-electronics.display()
+
+electronics = Node("Electronics")
+
+phone = Node("Phone")
+tv = Node("TV")
+laptop = Node("Laptop")
+
+electronics.addChild(phone)
+electronics.addChild(tv)
+electronics.addChild(laptop)
+
+android = Node("Android")
+apple = Node("iOS")
+intel = Node("Intel")
+
+phone.addChild(android)
+phone.addChild(apple)
+phone.addChild(intel)
+
+lenovo = Node("Lenovo")
+
+laptop.addChild(lenovo)
+
+electronics.display(0)
