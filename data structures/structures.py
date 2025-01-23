@@ -107,7 +107,7 @@ class Node():
                 
 
 
-electronics = Node("Electronics")
+"""electronics = Node("Electronics")
 
 phone = Node("Phone")
 tv = Node("TV")
@@ -128,5 +128,55 @@ phone.addChild(intel)
 lenovo = Node("Lenovo")
 
 laptop.addChild(lenovo)
+
+electronics.display(0)"""
+
+class NodeBin():
+
+    def __init__(self, data):
+        self.data = data
+
+        self.leftChild = None
+        self.rightChild = None
+    
+    def addChild(self, num):
+
+        if num < self.data:
+            if not self.leftChild:
+                node = NodeBin(num)
+                self.leftChild = node
+            else:
+                self.leftChild.addChild(num)
+        elif num > self.data:
+            if not self.rightChild:
+                node = NodeBin(num)
+                self.rightChild = node
+            else:
+                self.rightChild.addChild(num)
+        else:
+            print("Error: Value already in tree")
+    
+    def display(self, index):
+        print("  "*index, "|__", self.data)
+        
+        if self.leftChild:
+            self.leftChild.display(index+1)
+        if self.rightChild:
+            self.rightChild.display(index+1)
+    
+    def inOrder(self):
+        
+        if self.leftChild:
+            self.leftChild.inOrder()
+        print(self.data)
+        if self.rightChild:
+            self.rightChild.inOrder()
+
+node = NodeBin(10)
+node.addChild(7)
+node.addChild(6)
+node.addChild(12)
+
+node.inOrder()
 
 electronics.display(0)
