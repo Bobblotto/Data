@@ -171,6 +171,39 @@ class NodeBin():
         print(self.data)
         if self.rightChild:
             self.rightChild.inOrder()
+    
+    def minMax(self):
+
+        print(self.min())
+        print(self.max())
+    
+    def min(self):
+
+        if self.leftChild:
+            return self.leftChild.min()
+        else:
+            return "min", self.data
+    
+    def max(self):
+
+        if self.rightChild:
+            return self.rightChild.max()
+        else:
+            return "max", self.data
+
+
+    def MM(self):
+
+        min = self
+        max = self
+
+        while min.leftChild:
+            min = min.leftChild
+        print("min: ", min.data)
+
+        while max.rightChild:
+            max = max.rightChild
+        print("max: ", max.data)
 
 node = NodeBin(10)
 node.addChild(7)
@@ -178,5 +211,4 @@ node.addChild(6)
 node.addChild(12)
 
 node.inOrder()
-
-electronics.display(0)
+node.minMax()
