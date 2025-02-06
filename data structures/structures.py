@@ -172,6 +172,54 @@ class NodeBin():
         if self.rightChild:
             self.rightChild.inOrder()
     
+    def preOrder(self):
+
+        print(self.data)
+        if self.leftChild:
+            self.leftChild.preOrder()
+        if self.rightChild:
+            self.rightChild.preOrder()
+
+    def delete(self, num):
+
+        if self.leftChild:
+            if self.leftChild.data == num:
+                if not self.leftChild.leftChild and not self.leftChild.rightChild:
+                    self.leftChild = None
+                elif self.leftChild.leftChild and not self.leftChild.rightChild:
+                    self.leftChild.data = self.leftChild.leftChild.data
+                elif not self.leftChild.leftChild and self.leftChild.rightChild:
+                    self.leftChild.data = self.leftChild.rightChild.data
+                    self.leftChild.rightChild = None
+                elif self.leftChild.leftChild and self.leftChild.rightChild:
+                    pass
+            else:
+                self.leftChild.delete(num)
+        
+        if self.rightChild:
+            if self.rightChild.data == num:
+                if not self.rightChild.leftChild and not self.rightChild.rightChild:
+                    self.rightChild = None
+                elif self.rightChild.leftChild and not self.rightChild.rightChild:
+                    self.rightChild.data = self.rightChild.leftChild.data
+                elif not self.rightChild.leftChild and self.rightChild.rightChild:
+                    self.rightChild.data = self.rightChild.rightChild.data
+                    self.rightChild.rightChild = None
+                elif self.rightChild.leftChild and self.rightChild.rightChild:
+                    self.rightChild.data = self.rightChild.min2().data
+                    self.rightChild.delete(self.rightChild.min2().data)
+                    print("-----------")
+                    print(self.rightChild.leftChild.data)
+            else:
+                self.rightChild.delete(num)
+            
+    def min2(self):
+
+        if self.leftChild:
+            return self.leftChild.min2()
+        else:
+            return self
+
     def minMax(self):
 
         print(self.min())
@@ -191,7 +239,6 @@ class NodeBin():
         else:
             return "max", self.data
 
-
     def MM(self):
 
         min = self
@@ -209,6 +256,13 @@ node = NodeBin(10)
 node.addChild(7)
 node.addChild(6)
 node.addChild(12)
+node.addChild(13)
+node.addChild(11)
+
+node.inOrder()
+print("------------------------")
+
+node.delete(12)
 
 node.inOrder()
 node.minMax()
