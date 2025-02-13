@@ -182,36 +182,68 @@ class NodeBin():
 
     def delete(self, num):
 
-        if self.leftChild:
-            if self.leftChild.data == num:
-                if not self.leftChild.leftChild and not self.leftChild.rightChild:
-                    self.leftChild = None
-                elif self.leftChild.leftChild and not self.leftChild.rightChild:
-                    self.leftChild.data = self.leftChild.leftChild.data
-                elif not self.leftChild.leftChild and self.leftChild.rightChild:
-                    self.leftChild.data = self.leftChild.rightChild.data
-                    self.leftChild.rightChild = None
-                elif self.leftChild.leftChild and self.leftChild.rightChild:
-                    pass
+        if num < self.data:
+
+            if self.leftChild:
+                if self.leftChild.data == num:
+                    if not self.leftChild.leftChild and not self.leftChild.rightChild:
+                        self.leftChild = None
+                    elif self.leftChild.leftChild and not self.leftChild.rightChild:
+                        self.leftChild.data = self.leftChild.leftChild.data
+                    elif not self.leftChild.leftChild and self.leftChild.rightChild:
+                        self.leftChild.data = self.leftChild.rightChild.data
+                        self.leftChild.rightChild = None
+                    elif self.leftChild.leftChild and self.leftChild.rightChild:
+                        pass
+                else:
+                    self.leftChild.delete(num)
+        elif num > self.data:
+
+            if self.rightChild:
+                if self.rightChild.data == num:
+                    if not self.rightChild.leftChild and not self.rightChild.rightChild:
+                        self.rightChild = None
+                    elif self.rightChild.leftChild and not self.rightChild.rightChild:
+                        self.rightChild.data = self.rightChild.leftChild.data
+                        self.rightChild.leftChild = None
+                    elif not self.rightChild.leftChild and self.rightChild.rightChild:
+                        self.rightChild.data = self.rightChild.rightChild.data
+                        self.rightChild.rightChild = None
+                    elif self.rightChild.leftChild and self.rightChild.rightChild:
+                        self.rightChild.data = self.rightChild.min2().data
+                        self.rightChild.leftChild = None
+                        self.rightChild.rightChild = None
+                       # self.rightChild.min2() = None
+                        #self.rightChild.delete(self.rightChild.min2().data)
+                else:
+                    self.rightChild.delete(num)
+
+    def delete2(self, num):
+
+        if num < self.data:
+
+            if self.leftChild:
+                self.leftChild = self.leftChild.delete2(num)
+        elif num > self.data:
+
+            if self.rightChild:
+                self.rightChild = self.rightChild.delete2(num)
+        else:
+
+            if not self.leftChild and not self.rightChild:
+                return None
+            elif not self.rightChild:
+                return self.leftChild
+            elif not self.leftChild:
+                return self.rightChild
             else:
-                self.leftChild.delete(num)
-        
-        if self.rightChild:
-            if self.rightChild.data == num:
-                if not self.rightChild.leftChild and not self.rightChild.rightChild:
-                    self.rightChild = None
-                elif self.rightChild.leftChild and not self.rightChild.rightChild:
-                    self.rightChild.data = self.rightChild.leftChild.data
-                elif not self.rightChild.leftChild and self.rightChild.rightChild:
-                    self.rightChild.data = self.rightChild.rightChild.data
-                    self.rightChild.rightChild = None
-                elif self.rightChild.leftChild and self.rightChild.rightChild:
-                    self.rightChild.data = self.rightChild.min2().data
-                    self.rightChild.delete(self.rightChild.min2().data)
-                    print("-----------")
-                    print(self.rightChild.leftChild.data)
-            else:
-                self.rightChild.delete(num)
+                min = self.rightChild.min2()
+                self.data = min.data
+
+                self.rightChild = self.rightChild.delete2(min.data)
+
+        return self
+            
             
     def min2(self):
 
@@ -253,16 +285,20 @@ class NodeBin():
         print("max: ", max.data)
 
 node = NodeBin(10)
+
 node.addChild(7)
 node.addChild(6)
 node.addChild(12)
-node.addChild(13)
 node.addChild(11)
+node.addChild(13)
 
 node.inOrder()
 print("------------------------")
 
-node.delete(12)
+node.delete2(12)
+
+node.inOrder()
+node.minMax()
 
 node.inOrder()
 node.minMax()
