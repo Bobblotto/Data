@@ -1,3 +1,4 @@
+from collections import deque
 
 class Stack(): # LIFO
 
@@ -284,7 +285,7 @@ class NodeBin():
             max = max.rightChild
         print("max: ", max.data)
 
-node = NodeBin(10)
+"""node = NodeBin(10)
 
 node.addChild(7)
 node.addChild(6)
@@ -298,7 +299,29 @@ print("------------------------")
 node.delete2(12)
 
 node.inOrder()
-node.minMax()
+node.minMax()"""
 
-node.inOrder()
-node.minMax()
+dic = {
+    "a" : ["b", "c", "d"],
+    "b" : ["a", "d"],
+    "c" : ["a", "d", "e"],
+    "d" : ["a", "b", "c", "e"],
+    "e" : ["c", "d"]
+}
+
+def breadthFastSearch(dic, start):
+
+    visited = []
+
+    queue = deque([start])
+    visited.append(start)
+
+    while queue:
+        front = queue.popleft()
+        print(front)
+        for item in dic[front]:
+            if item not in visited:
+                queue.append(item)
+                visited.append(item)
+
+breadthFastSearch(dic, "a")
