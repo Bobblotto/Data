@@ -301,7 +301,7 @@ node.delete2(12)
 node.inOrder()
 node.minMax()"""
 
-dic = {
+dic = { # graph
     "a" : ["b", "c", "d"],
     "b" : ["a", "d"],
     "c" : ["a", "d", "e"],
@@ -322,6 +322,29 @@ def breadthFastSearch(dic, start):
         for item in dic[front]:
             if item not in visited:
                 queue.append(item)
+                visited.append(item)
+
+breadthFastSearch(dic, "a")
+
+print("-----------------------------------")
+
+def depthFastSearch(dic, start):
+
+    visited = []
+
+    stack = [start]
+    visited.append(start)
+
+    while stack:
+        last = stack.pop()
+        print(last)
+        for item in dic[last]:
+            if item not in visited:
+                stack.append(item)
+                visited.append(item)
+
+depthFastSearch(dic, "a")
+
                 visited.append(item)
 
 breadthFastSearch(dic, "a")
